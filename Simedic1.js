@@ -67891,7 +67891,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebLabel2.SetLeft(0);
         this.WebLabel2.SetTop(0);
         this.WebLabel2.SetWidth(701);
-        this.WebLabel2.SetHeight(25);
+        this.WebLabel2.SetHeight(23);
         this.WebLabel2.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
         this.WebLabel2.SetAlignment(pas.Classes.TAlignment.taCenter);
         this.WebLabel2.SetCaption("Expediente Clínico Paciente");
@@ -68248,7 +68248,376 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
   });
   this.Form1 = null;
 });
-rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","uGraficas","Unit1","uGrafica","uCargarConsultas"],function () {
+rtl.module("WEBLib.Login",["System","Classes","SysUtils","Types","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.Graphics","WEBLib.Dialogs","Web"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TLoginPanel",pas["WEBLib.Controls"].TCustomControl,function () {
+    this.$init = function () {
+      pas["WEBLib.Controls"].TCustomControl.$init.call(this);
+      this.FPasswordLabel = "";
+      this.FOnLogin = null;
+      this.FUserLabel = "";
+      this.FPassword = "";
+      this.FCaptionLabel = "";
+      this.FUser = "";
+      this.FBorderColor$1 = 0;
+      this.FLoginLabel = "";
+      this.FElementButtonClassname = "";
+      this.FElementInputClassName = "";
+      this.FElementClassName$1 = "";
+      this.FUserInput = null;
+      this.FPasswordInput = null;
+      this.FUserLabelSpan = null;
+      this.FPasswordLabelSpan = null;
+      this.FButton = null;
+      this.FCaption$1 = null;
+      this.FElementCaptionClassName = "";
+      this.FPadding = 0;
+      this.FMargin = 0;
+      this.FElementLabelClassName = "";
+      this.FCreated = false;
+    };
+    this.$final = function () {
+      this.FOnLogin = undefined;
+      this.FUserInput = undefined;
+      this.FPasswordInput = undefined;
+      this.FUserLabelSpan = undefined;
+      this.FPasswordLabelSpan = undefined;
+      this.FButton = undefined;
+      this.FCaption$1 = undefined;
+      pas["WEBLib.Controls"].TCustomControl.$final.call(this);
+    };
+    this.SetPassword = function (Value) {
+      if (this.FPassword !== Value) {
+        this.FPassword = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetPasswordLabel = function (Value) {
+      if (this.FPasswordLabel !== Value) {
+        this.FPasswordLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetUser = function (Value) {
+      if (this.FUser !== Value) {
+        this.FUser = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetUserLabel = function (Value) {
+      if (this.FUserLabel !== Value) {
+        this.FUserLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.HandleLoginClick = function (Event) {
+      var Result = false;
+      Result = true;
+      this.DoLogin();
+      return Result;
+    };
+    this.HandlePasswordKeypress = function (Event) {
+      var Result = false;
+      Result = true;
+      if (Event.key === "Enter") this.DoLogin();
+      return Result;
+    };
+    this.GetPassword = function () {
+      var Result = "";
+      if (this.FPasswordInput != null) {
+        Result = rtl.asExt(this.FPasswordInput,HTMLInputElement).value}
+       else Result = this.FPassword;
+      return Result;
+    };
+    this.GetUser = function () {
+      var Result = "";
+      if (this.FUserInput != null) {
+        Result = rtl.asExt(this.FUserInput,HTMLInputElement).value}
+       else Result = this.FUser;
+      return Result;
+    };
+    this.SetBorderColor$1 = function (Value) {
+      if (this.FBorderColor$1 !== Value) {
+        this.FBorderColor$1 = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetCaptionLabel = function (Value) {
+      if (this.FCaptionLabel !== Value) {
+        this.FCaptionLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetElementButtonClassName = function (Value) {
+      this.FElementButtonClassname = Value;
+    };
+    this.SetElementCaptionClassName = function (Value) {
+      this.FElementCaptionClassName = Value;
+    };
+    this.SetElementClassName$1 = function (Value) {
+      this.FElementClassName$1 = Value;
+    };
+    this.SetElementInputClassName = function (Value) {
+      this.FElementInputClassName = Value;
+    };
+    this.SetMargin = function (Value) {
+      if (this.FMargin !== Value) {
+        this.FMargin = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetPadding = function (Value) {
+      if (this.FPadding !== Value) {
+        this.FPadding = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetElementLabelClassName = function (Value) {
+      if (this.FElementLabelClassName !== Value) {
+        this.FElementLabelClassName = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetLoginLabel = function (Value) {
+      if (this.FLoginLabel !== Value) {
+        this.FLoginLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.DoLogin = function () {
+      if (this.FOnLogin != null) this.FOnLogin(this);
+    };
+    this.CreateElement = function () {
+      var Result = null;
+      var br = null;
+      var useCSS = false;
+      this.FCreated = true;
+      Result = document.createElement("SPAN");
+      this.FCaption$1 = document.createElement("DIV");
+      this.FUserInput = document.createElement("INPUT");
+      this.FUserInput.setAttribute("id",this.FName + "_usr");
+      this.FPasswordInput = document.createElement("INPUT");
+      this.FPasswordInput.setAttribute("type","password");
+      this.FPasswordInput.setAttribute("id",this.FName + "_pwd");
+      this.FUserLabelSpan = document.createElement("DIV");
+      this.FPasswordLabelSpan = document.createElement("DIV");
+      useCSS = this.UseCSSFont();
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FCaption$1,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserLabelSpan,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserInput,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordLabelSpan,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordInput,this.FFont,useCSS);
+      Result.appendChild(this.FCaption$1);
+      Result.appendChild(this.FUserLabelSpan);
+      Result.appendChild(this.FUserInput);
+      Result.appendChild(this.FPasswordLabelSpan);
+      Result.appendChild(this.FPasswordInput);
+      br = document.createElement("BR");
+      Result.appendChild(br);
+      this.FButton = document.createElement("BUTTON");
+      this.FButton.setAttribute("id",this.FName + "_btn");
+      Result.appendChild(this.FButton);
+      return Result;
+    };
+    this.UpdateElementVisual = function () {
+      var strpadding = "";
+      var strmargin = "";
+      var useCSS = false;
+      pas["WEBLib.Controls"].TCustomControl.UpdateElementVisual.call(this);
+      if (this.GetElementHandle() != null) {
+        useCSS = this.UseCSSFont();
+        strpadding = pas.SysUtils.IntToStr(this.FPadding) + "px";
+        strmargin = pas.SysUtils.IntToStr(this.FMargin) + "px";
+        this.GetElementHandle().setAttribute("class",this.FElementClassName$1);
+        if (this.FElementClassName$1 === "") {
+          this.GetElementHandle().style.setProperty("border","solid 1px " + pas["WEBLib.Graphics"].ColorToHTML(this.FBorderColor$1));
+          this.GetElementHandle().style.setProperty("padding",strpadding);
+        };
+        if (this.FVisible) this.GetElementHandle().style.setProperty("display","table");
+        this.FCaption$1.setAttribute("class",this.FElementCaptionClassName);
+        if (this.FElementCaptionClassName === "") {
+          this.FCaption$1.style.setProperty("margin-top",strmargin);
+          this.FCaption$1.style.setProperty("margin-bottom",strmargin);
+          this.FCaption$1.style.setProperty("font-weight","bold");
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FCaption$1,this.FFont,useCSS);
+        };
+        this.FUserInput.setAttribute("class",this.FElementInputClassName);
+        this.FPasswordInput.setAttribute("class",this.FElementInputClassName);
+        if (this.FElementInputClassName === "") {
+          this.FUserInput.style.setProperty("margin-top",strmargin);
+          this.FUserInput.style.setProperty("margin-bottom",strmargin);
+          this.FPasswordInput.style.setProperty("margin-top",strmargin);
+          this.FPasswordInput.style.setProperty("margin-bottom",strmargin);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserInput,this.FFont,useCSS);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordInput,this.FFont,useCSS);
+        };
+        this.FUserInput.style.setProperty("width","100%");
+        this.FUserInput.style.setProperty("display","table-cell");
+        this.FPasswordInput.style.setProperty("width","100%");
+        this.FPasswordInput.style.setProperty("display","table-cell");
+        this.FUserLabelSpan.setAttribute("class",this.FElementLabelClassName);
+        this.FPasswordLabelSpan.setAttribute("class",this.FElementLabelClassName);
+        if (this.FElementLabelClassName === "") {
+          this.FUserLabelSpan.style.setProperty("margin-top",strmargin);
+          this.FUserLabelSpan.style.setProperty("margin-bottom",strmargin);
+          this.FPasswordLabelSpan.style.setProperty("margin-top",strmargin);
+          this.FPasswordLabelSpan.style.setProperty("margin-bottom",strmargin);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserLabelSpan,this.FFont,useCSS);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordLabelSpan,this.FFont,useCSS);
+        };
+        this.FButton.setAttribute("class",this.FElementButtonClassname);
+        if (this.FElementButtonClassname === "") {
+          this.FButton.style.setProperty("margin-top",strmargin);
+          this.FButton.style.setProperty("margin-bottom",strmargin);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FButton,this.FFont,useCSS);
+        };
+        this.FButton.style.setProperty("float","right");
+      };
+    };
+    this.UpdateElementData = function () {
+      pas["WEBLib.Controls"].TControl.UpdateElementData.call(this);
+      this.FUserLabelSpan.innerHTML = this.FUserLabel;
+      this.FPasswordLabelSpan.innerHTML = this.FPasswordLabel;
+      this.FButton.innerHTML = this.FLoginLabel;
+      this.FCaption$1.innerHTML = this.FCaptionLabel;
+      rtl.asExt(this.FUserInput,HTMLInputElement).value = this.FUser;
+      rtl.asExt(this.FPasswordInput,HTMLInputElement).value = this.FPassword;
+    };
+    this.BindEvents = function () {
+      var s = "";
+      pas["WEBLib.Controls"].TCustomControl.BindEvents.call(this);
+      if (this.FCreated) {
+        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
+        this.FPasswordInput.addEventListener("keypress",rtl.createCallback(this,"HandlePasswordKeypress"));
+        this.FCreated = false;
+      } else {
+        s = this.GetID() + "_btn";
+        this.FButton = document.getElementById(s);
+        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
+        s = this.GetID() + "_usr";
+        this.FUserInput = document.getElementById(s);
+        s = this.GetID() + "_pwd";
+        this.FPasswordInput = document.getElementById(s);
+        this.FPasswordInput.addEventListener("keypress",rtl.createCallback(this,"HandlePasswordKeypress"));
+      };
+    };
+    this.UnbindEvents = function () {
+      pas["WEBLib.Controls"].TControl.UnbindEvents.call(this);
+      this.FButton.removeEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
+    };
+    this.CreateInitialize = function () {
+      pas["WEBLib.Controls"].TCustomControl.CreateInitialize.call(this);
+      this.SetColor(14811135);
+      this.FCaptionLabel = "Login";
+      this.FBorderColor$1 = 12632256;
+      this.FUserLabel = "Username:";
+      this.FPasswordLabel = "Password:";
+      this.FLoginLabel = "Login";
+      this.FPadding = 10;
+      this.FMargin = 5;
+      this.SetHeight(155);
+      this.SetWidth(185);
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addProperty("Align",2,pas["WEBLib.Controls"].$rtti["TAlign"],"FAlign","SetAlign",{Default: pas["WEBLib.Controls"].TAlign.alNone});
+    $r.addProperty("AlignWithMargins",2,rtl.boolean,"FAlignWithMargins","SetAlignWithMargins",{Default: false});
+    $r.addProperty("Anchors",2,pas["WEBLib.Controls"].$rtti["TAnchors"],"FAnchors","SetAnchors",{Default: rtl.createSet(pas["WEBLib.Controls"].TAnchorKind.akLeft,pas["WEBLib.Controls"].TAnchorKind.akTop)});
+    $r.addProperty("BorderColor",2,pas["WEBLib.Graphics"].$rtti["TColor"],"FBorderColor$1","SetBorderColor$1");
+    $r.addProperty("CaptionLabel",2,rtl.string,"FCaptionLabel","SetCaptionLabel");
+    $r.addProperty("Center",0,pas["WEBLib.Controls"].$rtti["TCenter"],"FCenter","");
+    $r.addProperty("ElementClassName",2,rtl.string,"FElementClassName$1","SetElementClassName$1");
+    $r.addProperty("ElementFont",2,pas["WEBLib.Controls"].$rtti["TElementFont"],"FElementFont","SetElementFont",{Default: pas["WEBLib.Controls"].TElementFont.efProperty});
+    $r.addProperty("ElementID",3,pas["WEBLib.Controls"].$rtti["TElementID"],"GetID","SetID");
+    $r.addProperty("ElementPosition",2,pas["WEBLib.Controls"].$rtti["TElementPosition"],"FElementPosition","SetElementPosition",{Default: pas["WEBLib.Controls"].TElementPosition.epAbsolute});
+    $r.addProperty("ElementCaptionClassName",2,rtl.string,"FElementCaptionClassName","SetElementCaptionClassName");
+    $r.addProperty("ElementInputClassName",2,rtl.string,"FElementInputClassName","SetElementInputClassName");
+    $r.addProperty("ElementButtonClassName",2,rtl.string,"FElementButtonClassname","SetElementButtonClassName");
+    $r.addProperty("ElementLabelClassName",2,rtl.string,"FElementLabelClassName","SetElementLabelClassName");
+    $r.addProperty("Font",2,pas["WEBLib.Graphics"].$rtti["TFont"],"FFont","SetFont");
+    $r.addProperty("LoginLabel",2,rtl.string,"FLoginLabel","SetLoginLabel");
+    $r.addProperty("Margin",2,rtl.longint,"FMargin","SetMargin");
+    $r.addProperty("Padding",2,rtl.longint,"FPadding","SetPadding");
+    $r.addProperty("Password",3,rtl.string,"GetPassword","SetPassword");
+    $r.addProperty("PasswordLabel",2,rtl.string,"FPasswordLabel","SetPasswordLabel");
+    $r.addProperty("User",3,rtl.string,"GetUser","SetUser");
+    $r.addProperty("UserLabel",2,rtl.string,"FUserLabel","SetUserLabel");
+    $r.addProperty("OnClick",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnClick","FOnClick");
+    $r.addProperty("OnLogin",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnLogin","FOnLogin");
+  });
+  rtl.createClass(this,"TWebLoginPanel",this.TLoginPanel,function () {
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+  });
+});
+rtl.module("uFormaLogin",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.Login","Unit1"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TFormaLogin",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebLoginPanel1 = null;
+    };
+    this.$final = function () {
+      this.WebLoginPanel1 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebLoginPanel1Click = function (Sender) {
+      this.Close();
+      pas["WEBLib.Forms"].Application.CreateForm(pas.Unit1.TForm1,{p: pas.Unit1, get: function () {
+          return this.p.Form1;
+        }, set: function (v) {
+          this.p.Form1 = v;
+        }});
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebLoginPanel1 = pas["WEBLib.Login"].TLoginPanel.$create("Create$1",[this]);
+      this.WebLoginPanel1.BeforeLoadDFMValues();
+      try {
+        this.SetName("FormaLogin");
+        this.SetWidth(674);
+        this.SetHeight(384);
+        this.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.WebLoginPanel1.SetParentComponent(this);
+        this.WebLoginPanel1.SetName("WebLoginPanel1");
+        this.WebLoginPanel1.SetLeft(168);
+        this.WebLoginPanel1.SetTop(43);
+        this.WebLoginPanel1.SetWidth(337);
+        this.WebLoginPanel1.SetHeight(297);
+        this.WebLoginPanel1.SetCaptionLabel("Login");
+        this.WebLoginPanel1.FCenter.SetHorizontal(true);
+        this.WebLoginPanel1.FCenter.SetVertical(true);
+        this.WebLoginPanel1.SetColor(14053594);
+        this.WebLoginPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
+        this.WebLoginPanel1.SetElementPosition(pas["WEBLib.Controls"].TElementPosition.epAbsolute);
+        this.WebLoginPanel1.SetLoginLabel("Login");
+        this.WebLoginPanel1.SetPasswordLabel("Contraseña:");
+        this.WebLoginPanel1.SetUserLabel("Usuario:");
+        this.SetEvent$1(this.WebLoginPanel1,this,"OnClick","WebLoginPanel1Click");
+      } finally {
+        this.WebLoginPanel1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebLoginPanel1",pas["WEBLib.Login"].$rtti["TLoginPanel"]);
+    $r.addMethod("WebLoginPanel1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.FormaLogin = null;
+});
+rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","uGraficas","Unit1","uGrafica","uCargarConsultas","uFormaLogin"],function () {
   "use strict";
   var $mod = this;
   $mod.$implcode = function () {
@@ -68263,10 +68632,10 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","uGraficas","Unit1"
   $mod.$main = function () {
     pas["WEBLib.Forms"].Application.Initialize();
     pas["WEBLib.Forms"].Application.FMainFormOnTaskBar = true;
-    pas["WEBLib.Forms"].Application.CreateForm(pas.Unit1.TForm1,{p: pas.Unit1, get: function () {
-        return this.p.Form1;
+    pas["WEBLib.Forms"].Application.CreateForm(pas.uFormaLogin.TFormaLogin,{p: pas.uFormaLogin, get: function () {
+        return this.p.FormaLogin;
       }, set: function (v) {
-        this.p.Form1 = v;
+        this.p.FormaLogin = v;
       }});
     pas["WEBLib.Forms"].Application.Run();
   };
