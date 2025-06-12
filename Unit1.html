@@ -1,0 +1,172 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>TMS Web Project</title>
+    <style>
+    </style>
+  </head>
+  <body>
+  <div  id="tableExp">
+     <button onclick='downloadXlxs()'>Download Excel</button>
+</div>
+<div style='display:none' id="tableZero"></div>
+<div style='display:none' id="tableOne"></div>
+<div style='display:none' id="tableTwo"></div>
+<div style='display:none' id="tableTres"></div>
+<div style='display:none' id="tableCuatro"></div>
+<div style='display:none' id="tableCinco"></div>
+  </body>
+</html>
+
+<script>
+$("#exportbtn").click(function(e) {
+//alert('entro exportbtn');
+
+
+
+  e.preventDefault()
+  var table = Tabulator.findTable("#tabExample")[0];
+ // console.log('table',table);
+
+  var data2c = [];
+
+  var datac=[[String.fromCharCode(12),""],
+             ["Consulta Medica", ""]
+             ];
+  //var datae = ["Estudio Medico",""];
+  const datae = ["Estudio", "Clinico"];
+  //var dataa = ["Analisis Lab.",""];
+  const dataa = ["Analisis", "Lab"];
+  var data1 = table.getSheetData("uno");
+  var data2 = table.getSheetData("dos");
+  var data3 = table.getSheetData("tres");
+  var data4 = table.getSheetData("cuatro");
+
+  var data2c = datac.concat(data2);
+
+  var data5pdf = data1.concat(data2c,data3,data4);
+
+
+
+  // var data5pdf = data1.concat(data2,data3,data4);    // OK sin titulos
+  console.log('data5 PDF',data5pdf);
+
+ // console.log(data1);
+ var pacnum = $("#edPaciente");
+ var pacnom = $("#edPacNombre");
+ console.log('num',pacnum.Caption );
+ console.log('nom',pacnom.Caption );
+
+ var selnum = $("#edPaciente").val();
+ console.log(selnum);
+ console.log('numero',selnum);
+ var selnom = $("#edPacNombre").val();
+ console.log(selnum);
+ console.log('nombre',selnom);
+ console.log('data1',data1);
+ if (selnom.length > 0)
+ {
+ var data1filtro = [
+            { id: selnum, nombre: selnom}
+        ];
+    console.log('tabledata',data1filtro);
+  //   alert('entro filtro');
+
+ }
+ else
+ {
+    var data1filtro= table.getSheetData("uno");
+ }
+
+ console.log('data1 filtro',data1filtro);
+
+ //  var position = table.getRowPosition(row);
+
+ //  var row = table.getRow(position); //return row component with index of 1
+ //  console.log('row',row);
+   //var rowData = row.getData();
+  //console.log('rowdata', rowData);
+
+
+  const tabledata1 = [
+    {id: 1, name: "Oli ", money: "0", col: "red", dob: ""},
+    {id: 2, name: "Mary ", money: "0", col: "blue", dob: "14/05/1982"},
+    {id: 3, name: "Christine ", money: "0", col: "green", dob: "22/05/1982"},
+    {id: 4, name: "Brendon ", money: "0", col: "orange", dob: "01/08/1980"},
+    {id: 5, name: "Margret ", money: "0", col: "yellow", dob: "31/01/1999"},
+  ];
+
+  const tabledata2 = [
+    {id: 1, name: " Bob", money: "12", col: "red", dob: ""},
+    {id: 2, name: " May", money: "1", col: "blue", dob: "14/05/1982"},
+    {id: 3, name: " Lobowski", money: "42", col: "green", dob: "22/05/1982"},
+    {id: 4, name: "Brendon ", money: "0", col: "orange", dob: "01/08/1980"},
+    {id: 5, name: " Marmajuke", money: "16", col: "yellow", dob: "31/01/1999"},
+  ];
+
+
+  const table0 = new Tabulator("#tableZero", {
+    layout: "fitDataFill", //fit columns to width of table (optional)
+    autoColumns: true,
+  });
+
+  const table1 = new Tabulator("#tableOne", {
+    //data: tabledata1, //assign data to table
+  //  data: data1, //assign data to table
+    data:data1filtro,
+    layout: "fitDataFill", //fit columns to width of table (optional)
+    autoColumns: true,
+  });
+
+    const table2 = new Tabulator("#tableTwo", {
+    //data: tabledata2, //assign data to table
+    data:data2,
+    layout: "fitDataFill", //fit columns to width of table (optional)
+    autoColumns: true,
+  });
+
+   const table3 = new Tabulator("#tableTres", {
+    //data: tabledata2, //assign data to table
+    data:data3,
+    layout: "fitDataFill", //fit columns to width of table (optional)
+    autoColumns: true,
+  });
+
+
+   const table4 = new Tabulator("#tableCuatro", {
+    //data: tabledata2, //assign data to table
+    data:data4,
+    layout: "fitDataFill", //fit columns to width of table (optional)
+    autoColumns: true,
+  });
+
+
+   const table5 = new Tabulator("#tableCinco", {
+    //data: tabledata2, //assign data to table
+    data:data5pdf,
+    layout: "fitDataFill", //fit columns to width of table (optional)
+    autoColumns: true,
+  });
+
+
+var sheets = {
+     "Paciente": table1,
+    "Consultas": table2,
+     "Estudios": table3,
+    "Analisis": table4
+};
+
+    downloadXlxs = function(){
+   // alert(' downloadXlxs');
+table0.download("xlsx", "data.xlsx", {sheets:sheets});
+};
+
+//   downloadPdfs = function(){
+//    alert(' downloadPdfs');
+//table5.download("pdf", "data.pdf"); //, {sheets:sheets});
+//};
+
+});
+
+
+</script>
