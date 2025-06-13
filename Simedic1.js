@@ -67068,9 +67068,9 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPanel4.FElementBodyClassName = "";
       this.WebPanel4.SetElementClassName("");
       this.WebPanel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
-      this.WebPanel4.SetColor(16711935);
+      this.WebPanel4.SetColor(0xF3D3F8);
       this.WebScrollBox1.SetElementClassName("");
-      this.WebScrollBox1.SetColor(16711935);
+      this.WebScrollBox1.SetColor(0xF3D3F8);
     };
     this.Imprimir1Click = function (Sender) {
       this.btn_imprimirClick(Sender);
@@ -68598,7 +68598,7 @@ rtl.module("uFormaLogin",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.WebLoginPanel1.SetCaptionLabel("Login");
         this.WebLoginPanel1.FCenter.SetHorizontal(true);
         this.WebLoginPanel1.FCenter.SetVertical(true);
-        this.WebLoginPanel1.SetColor(14053594);
+        this.WebLoginPanel1.SetColor(15979512);
         this.WebLoginPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
         this.WebLoginPanel1.SetElementPosition(pas["WEBLib.Controls"].TElementPosition.epAbsolute);
         this.WebLoginPanel1.SetLoginLabel("Login");
